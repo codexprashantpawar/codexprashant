@@ -235,7 +235,11 @@ export type Database = {
       orders: {
         Row: {
           created_at: string | null
+          current_location: string | null
+          delivery_partner: string | null
+          estimated_delivery: string | null
           id: string
+          last_location_update: string | null
           notes: string | null
           order_number: string
           payment_method: string | null
@@ -246,12 +250,18 @@ export type Database = {
           subtotal: number
           tax: number | null
           total: number
+          tracking_number: string | null
+          tracking_url: string | null
           updated_at: string | null
           user_id: string | null
         }
         Insert: {
           created_at?: string | null
+          current_location?: string | null
+          delivery_partner?: string | null
+          estimated_delivery?: string | null
           id?: string
+          last_location_update?: string | null
           notes?: string | null
           order_number: string
           payment_method?: string | null
@@ -262,12 +272,18 @@ export type Database = {
           subtotal: number
           tax?: number | null
           total: number
+          tracking_number?: string | null
+          tracking_url?: string | null
           updated_at?: string | null
           user_id?: string | null
         }
         Update: {
           created_at?: string | null
+          current_location?: string | null
+          delivery_partner?: string | null
+          estimated_delivery?: string | null
           id?: string
+          last_location_update?: string | null
           notes?: string | null
           order_number?: string
           payment_method?: string | null
@@ -278,6 +294,8 @@ export type Database = {
           subtotal?: number
           tax?: number | null
           total?: number
+          tracking_number?: string | null
+          tracking_url?: string | null
           updated_at?: string | null
           user_id?: string | null
         }
@@ -431,6 +449,27 @@ export type Database = {
           },
         ]
       }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       wishlist: {
         Row: {
           created_at: string | null
@@ -465,10 +504,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -595,6 +640,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
