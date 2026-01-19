@@ -26,7 +26,19 @@ import Shipping from "./pages/Shipping";
 import SizeGuide from "./pages/SizeGuide";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
+import AdminLayout from "./pages/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/Dashboard";
+import AdminProducts from "./pages/admin/Products";
+import AdminOrders from "./pages/admin/Orders";
+import AdminOrderDetail from "./pages/admin/OrderDetail";
+import AdminCategories from "./pages/admin/Categories";
+import AdminCustomers from "./pages/admin/Customers";
+import AdminMessages from "./pages/admin/Messages";
+import AdminSettings from "./pages/admin/Settings";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +61,8 @@ const App = () => (
                 <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/account" element={<Account />} />
                 <Route path="/account/orders" element={<Orders />} />
@@ -61,8 +75,22 @@ const App = () => (
                 <Route path="/size-guide" element={<SizeGuide />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
+                
+                {/* Admin Routes */}
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route index element={<AdminDashboard />} />
+                  <Route path="products" element={<AdminProducts />} />
+                  <Route path="orders" element={<AdminOrders />} />
+                  <Route path="orders/:id" element={<AdminOrderDetail />} />
+                  <Route path="categories" element={<AdminCategories />} />
+                  <Route path="customers" element={<AdminCustomers />} />
+                  <Route path="messages" element={<AdminMessages />} />
+                  <Route path="settings" element={<AdminSettings />} />
+                </Route>
+                
                 <Route path="*" element={<NotFound />} />
               </Routes>
+              <WhatsAppButton />
             </BrowserRouter>
           </TooltipProvider>
         </WishlistProvider>

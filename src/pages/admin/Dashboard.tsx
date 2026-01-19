@@ -3,7 +3,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Package, ShoppingCart, Users, IndianRupee, TrendingUp, Clock } from "lucide-react";
 import { formatPrice } from "@/lib/formatPrice";
-import AdminLayout from "./AdminLayout";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
@@ -34,18 +33,15 @@ const Dashboard = () => {
 
   const fetchStats = async () => {
     try {
-      // Fetch products count
       const { count: productsCount } = await supabase
         .from("products")
         .select("*", { count: "exact", head: true });
 
-      // Fetch orders
       const { data: orders } = await supabase
         .from("orders")
         .select("*")
         .order("created_at", { ascending: false });
 
-      // Fetch profiles count
       const { count: customersCount } = await supabase
         .from("profiles")
         .select("*", { count: "exact", head: true });
@@ -86,119 +82,115 @@ const Dashboard = () => {
   };
 
   return (
-    <AdminLayout>
-      <div className="space-y-8">
-        <div>
-          <h1 className="font-serif text-3xl font-semibold mb-2">Dashboard</h1>
-          <p className="text-muted-foreground">Welcome to VYSTRA Admin Panel</p>
-        </div>
+    <div className="space-y-8">
+      <div>
+        <h1 className="font-serif text-3xl font-semibold mb-2">Dashboard</h1>
+        <p className="text-muted-foreground">Welcome to VYSTRA Admin Panel</p>
+      </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Total Revenue
-              </CardTitle>
-              <IndianRupee className="w-4 h-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{formatPrice(stats.totalRevenue)}</div>
-              <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
-                <TrendingUp className="w-3 h-3 text-green-500" />
-                All time
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Total Orders
-              </CardTitle>
-              <ShoppingCart className="w-4 h-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.totalOrders}</div>
-              <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
-                <Clock className="w-3 h-3 text-yellow-500" />
-                {stats.pendingOrders} pending
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Products
-              </CardTitle>
-              <Package className="w-4 h-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.totalProducts}</div>
-              <Link to="/admin/products" className="text-xs text-accent hover:underline">
-                Manage products →
-              </Link>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Customers
-              </CardTitle>
-              <Users className="w-4 h-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.totalCustomers}</div>
-              <Link to="/admin/customers" className="text-xs text-accent hover:underline">
-                View customers →
-              </Link>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Recent Orders */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Recent Orders</CardTitle>
-            <Link to="/admin/orders" className="text-sm text-accent hover:underline">
-              View all →
-            </Link>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Total Revenue
+            </CardTitle>
+            <IndianRupee className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            {loading ? (
-              <p className="text-muted-foreground">Loading...</p>
-            ) : stats.recentOrders.length === 0 ? (
-              <p className="text-muted-foreground">No orders yet</p>
-            ) : (
-              <div className="space-y-4">
-                {stats.recentOrders.map((order) => (
-                  <Link
-                    key={order.id}
-                    to={`/admin/orders/${order.id}`}
-                    className="flex items-center justify-between p-4 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
-                  >
-                    <div>
-                      <p className="font-medium">{order.order_number}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {format(new Date(order.created_at), "PPp")}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-medium">{formatPrice(order.total)}</p>
-                      <Badge className={getStatusColor(order.status)} variant="secondary">
-                        {order.status?.replace(/_/g, " ")}
-                      </Badge>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
+            <div className="text-2xl font-bold">{formatPrice(stats.totalRevenue)}</div>
+            <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+              <TrendingUp className="w-3 h-3 text-green-500" />
+              All time
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Total Orders
+            </CardTitle>
+            <ShoppingCart className="w-4 h-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats.totalOrders}</div>
+            <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+              <Clock className="w-3 h-3 text-yellow-500" />
+              {stats.pendingOrders} pending
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Products
+            </CardTitle>
+            <Package className="w-4 h-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats.totalProducts}</div>
+            <Link to="/admin/products" className="text-xs text-accent hover:underline">
+              Manage products →
+            </Link>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Customers
+            </CardTitle>
+            <Users className="w-4 h-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats.totalCustomers}</div>
+            <Link to="/admin/customers" className="text-xs text-accent hover:underline">
+              View customers →
+            </Link>
           </CardContent>
         </Card>
       </div>
-    </AdminLayout>
+
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle>Recent Orders</CardTitle>
+          <Link to="/admin/orders" className="text-sm text-accent hover:underline">
+            View all →
+          </Link>
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <p className="text-muted-foreground">Loading...</p>
+          ) : stats.recentOrders.length === 0 ? (
+            <p className="text-muted-foreground">No orders yet</p>
+          ) : (
+            <div className="space-y-4">
+              {stats.recentOrders.map((order) => (
+                <Link
+                  key={order.id}
+                  to={`/admin/orders/${order.id}`}
+                  className="flex items-center justify-between p-4 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
+                >
+                  <div>
+                    <p className="font-medium">{order.order_number}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {format(new Date(order.created_at), "PPp")}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-medium">{formatPrice(order.total)}</p>
+                    <Badge className={getStatusColor(order.status)} variant="secondary">
+                      {order.status?.replace(/_/g, " ")}
+                    </Badge>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

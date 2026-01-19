@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import AdminLayout from "./AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -150,200 +149,198 @@ const Categories = () => {
   };
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
-        <div className="flex justify-between items-start">
-          <div>
-            <h1 className="font-serif text-3xl font-semibold mb-2">Categories</h1>
-            <p className="text-muted-foreground">Manage product categories</p>
-          </div>
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button onClick={() => closeDialog()}>
-                <Plus className="w-4 h-4 mr-2" />
-                Add Category
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>
-                  {editingCategory ? "Edit Category" : "Add New Category"}
-                </DialogTitle>
-              </DialogHeader>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Name *</Label>
-                  <Input
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="slug">Slug</Label>
-                  <Input
-                    id="slug"
-                    value={formData.slug}
-                    onChange={(e) =>
-                      setFormData({ ...formData, slug: e.target.value })
-                    }
-                    placeholder="auto-generated if empty"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea
-                    id="description"
-                    value={formData.description}
-                    onChange={(e) =>
-                      setFormData({ ...formData, description: e.target.value })
-                    }
-                    rows={3}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="image_url">Image URL</Label>
-                  <Input
-                    id="image_url"
-                    value={formData.image_url}
-                    onChange={(e) =>
-                      setFormData({ ...formData, image_url: e.target.value })
-                    }
-                    placeholder="https://example.com/image.jpg"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="display_order">Display Order</Label>
-                    <Input
-                      id="display_order"
-                      type="number"
-                      value={formData.display_order}
-                      onChange={(e) =>
-                        setFormData({ ...formData, display_order: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="age_group">Age Group</Label>
-                    <Input
-                      id="age_group"
-                      value={formData.age_group}
-                      onChange={(e) =>
-                        setFormData({ ...formData, age_group: e.target.value })
-                      }
-                      placeholder="all, kids, adults"
-                    />
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Switch
-                    id="is_active"
-                    checked={formData.is_active}
-                    onCheckedChange={(checked) =>
-                      setFormData({ ...formData, is_active: checked })
-                    }
-                  />
-                  <Label htmlFor="is_active">Active</Label>
-                </div>
-                <div className="flex justify-end gap-2">
-                  <Button type="button" variant="outline" onClick={closeDialog}>
-                    Cancel
-                  </Button>
-                  <Button type="submit">
-                    {editingCategory ? "Update" : "Create"}
-                  </Button>
-                </div>
-              </form>
-            </DialogContent>
-          </Dialog>
+    <div className="space-y-6">
+      <div className="flex justify-between items-start">
+        <div>
+          <h1 className="font-serif text-3xl font-semibold mb-2">Categories</h1>
+          <p className="text-muted-foreground">Manage product categories</p>
         </div>
-
-        <div className="bg-background rounded-lg border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Category</TableHead>
-                <TableHead>Slug</TableHead>
-                <TableHead>Order</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {loading ? (
-                <TableRow>
-                  <TableCell colSpan={5} className="text-center py-8">
-                    Loading...
-                  </TableCell>
-                </TableRow>
-              ) : categories.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={5} className="text-center py-8">
-                    No categories found
-                  </TableCell>
-                </TableRow>
-              ) : (
-                categories.map((category) => (
-                  <TableRow key={category.id}>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        {category.image_url && (
-                          <div className="w-10 h-10 rounded overflow-hidden bg-muted">
-                            <img
-                              src={category.image_url}
-                              alt={category.name}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        )}
-                        <span className="font-medium">{category.name}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-muted-foreground">
-                      {category.slug}
-                    </TableCell>
-                    <TableCell>{category.display_order}</TableCell>
-                    <TableCell>
-                      <Badge
-                        variant="secondary"
-                        className={
-                          category.is_active
-                            ? "bg-green-100 text-green-800"
-                            : "bg-gray-100 text-gray-800"
-                        }
-                      >
-                        {category.is_active ? "Active" : "Inactive"}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => openEditDialog(category)}
-                      >
-                        <Pencil className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleDelete(category.id)}
-                        className="text-destructive hover:text-destructive"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </div>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button onClick={() => closeDialog()}>
+              <Plus className="w-4 h-4 mr-2" />
+              Add Category
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>
+                {editingCategory ? "Edit Category" : "Add New Category"}
+              </DialogTitle>
+            </DialogHeader>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Name *</Label>
+                <Input
+                  id="name"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="slug">Slug</Label>
+                <Input
+                  id="slug"
+                  value={formData.slug}
+                  onChange={(e) =>
+                    setFormData({ ...formData, slug: e.target.value })
+                  }
+                  placeholder="auto-generated if empty"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  value={formData.description}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
+                  rows={3}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="image_url">Image URL</Label>
+                <Input
+                  id="image_url"
+                  value={formData.image_url}
+                  onChange={(e) =>
+                    setFormData({ ...formData, image_url: e.target.value })
+                  }
+                  placeholder="https://example.com/image.jpg"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="display_order">Display Order</Label>
+                  <Input
+                    id="display_order"
+                    type="number"
+                    value={formData.display_order}
+                    onChange={(e) =>
+                      setFormData({ ...formData, display_order: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="age_group">Age Group</Label>
+                  <Input
+                    id="age_group"
+                    value={formData.age_group}
+                    onChange={(e) =>
+                      setFormData({ ...formData, age_group: e.target.value })
+                    }
+                    placeholder="all, kids, adults"
+                  />
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="is_active"
+                  checked={formData.is_active}
+                  onCheckedChange={(checked) =>
+                    setFormData({ ...formData, is_active: checked })
+                  }
+                />
+                <Label htmlFor="is_active">Active</Label>
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button type="button" variant="outline" onClick={closeDialog}>
+                  Cancel
+                </Button>
+                <Button type="submit">
+                  {editingCategory ? "Update" : "Create"}
+                </Button>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
-    </AdminLayout>
+
+      <div className="bg-background rounded-lg border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Category</TableHead>
+              <TableHead>Slug</TableHead>
+              <TableHead>Order</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center py-8">
+                  Loading...
+                </TableCell>
+              </TableRow>
+            ) : categories.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center py-8">
+                  No categories found
+                </TableCell>
+              </TableRow>
+            ) : (
+              categories.map((category) => (
+                <TableRow key={category.id}>
+                  <TableCell>
+                    <div className="flex items-center gap-3">
+                      {category.image_url && (
+                        <div className="w-10 h-10 rounded overflow-hidden bg-muted">
+                          <img
+                            src={category.image_url}
+                            alt={category.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <span className="font-medium">{category.name}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-muted-foreground">
+                    {category.slug}
+                  </TableCell>
+                  <TableCell>{category.display_order}</TableCell>
+                  <TableCell>
+                    <Badge
+                      variant="secondary"
+                      className={
+                        category.is_active
+                          ? "bg-green-100 text-green-800"
+                          : "bg-gray-100 text-gray-800"
+                      }
+                    >
+                      {category.is_active ? "Active" : "Inactive"}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => openEditDialog(category)}
+                    >
+                      <Pencil className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDelete(category.id)}
+                      className="text-destructive hover:text-destructive"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
   );
 };
 
