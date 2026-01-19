@@ -1,5 +1,5 @@
-import { ReactNode, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation, useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useAdmin } from "@/hooks/useAdmin";
 import {
@@ -18,11 +18,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface AdminLayoutProps {
-  children: ReactNode;
-}
-
-const AdminLayout = ({ children }: AdminLayoutProps) => {
+const AdminLayout = () => {
   const { user, signOut, loading: authLoading } = useAuth();
   const { isAdmin, loading: adminLoading } = useAdmin();
   const navigate = useNavigate();
@@ -139,9 +135,8 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
         />
       )}
 
-      {/* Main content */}
       <main className="lg:ml-64 min-h-screen pt-16 lg:pt-0">
-        <div className="p-4 lg:p-8">{children}</div>
+        <div className="p-4 lg:p-8"><Outlet /></div>
       </main>
     </div>
   );

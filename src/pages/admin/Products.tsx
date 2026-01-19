@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import AdminLayout from "./AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -208,329 +207,323 @@ const Products = () => {
   );
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row justify-between gap-4">
-          <div>
-            <h1 className="font-serif text-3xl font-semibold mb-2">Products</h1>
-            <p className="text-muted-foreground">Manage your product catalog</p>
-          </div>
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button onClick={() => closeDialog()}>
-                <Plus className="w-4 h-4 mr-2" />
-                Add Product
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>
-                  {editingProduct ? "Edit Product" : "Add New Product"}
-                </DialogTitle>
-              </DialogHeader>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Product Name *</Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="slug">Slug</Label>
-                    <Input
-                      id="slug"
-                      value={formData.slug}
-                      onChange={(e) =>
-                        setFormData({ ...formData, slug: e.target.value })
-                      }
-                      placeholder="auto-generated if empty"
-                    />
-                  </div>
-                </div>
-
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between gap-4">
+        <div>
+          <h1 className="font-serif text-3xl font-semibold mb-2">Products</h1>
+          <p className="text-muted-foreground">Manage your product catalog</p>
+        </div>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button onClick={() => closeDialog()}>
+              <Plus className="w-4 h-4 mr-2" />
+              Add Product
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>
+                {editingProduct ? "Edit Product" : "Add New Product"}
+              </DialogTitle>
+            </DialogHeader>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea
-                    id="description"
-                    value={formData.description}
+                  <Label htmlFor="name">Product Name *</Label>
+                  <Input
+                    id="name"
+                    value={formData.name}
                     onChange={(e) =>
-                      setFormData({ ...formData, description: e.target.value })
+                      setFormData({ ...formData, name: e.target.value })
                     }
-                    rows={3}
+                    required
                   />
                 </div>
-
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="price">Price (₹) *</Label>
-                    <Input
-                      id="price"
-                      type="number"
-                      value={formData.price}
-                      onChange={(e) =>
-                        setFormData({ ...formData, price: e.target.value })
-                      }
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="sale_price">Sale Price (₹)</Label>
-                    <Input
-                      id="sale_price"
-                      type="number"
-                      value={formData.sale_price}
-                      onChange={(e) =>
-                        setFormData({ ...formData, sale_price: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="stock">Stock</Label>
-                    <Input
-                      id="stock"
-                      type="number"
-                      value={formData.stock_quantity}
-                      onChange={(e) =>
-                        setFormData({ ...formData, stock_quantity: e.target.value })
-                      }
-                    />
-                  </div>
-                </div>
-
                 <div className="space-y-2">
-                  <Label htmlFor="category">Category</Label>
-                  <Select
-                    value={formData.category_id}
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, category_id: value })
+                  <Label htmlFor="slug">Slug</Label>
+                  <Input
+                    id="slug"
+                    value={formData.slug}
+                    onChange={(e) =>
+                      setFormData({ ...formData, slug: e.target.value })
                     }
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categories.map((cat) => (
-                        <SelectItem key={cat.id} value={cat.id}>
-                          {cat.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                    placeholder="auto-generated if empty"
+                  />
                 </div>
+              </div>
 
+              <div className="space-y-2">
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  value={formData.description}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
+                  rows={3}
+                />
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="images">
-                    Image URLs (comma separated)
-                  </Label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="images"
-                      value={formData.images}
-                      onChange={(e) =>
-                        setFormData({ ...formData, images: e.target.value })
-                      }
-                      placeholder="https://example.com/image1.jpg, https://example.com/image2.jpg"
-                    />
-                    <Button type="button" variant="outline" size="icon">
-                      <ImagePlus className="w-4 h-4" />
-                    </Button>
-                  </div>
+                  <Label htmlFor="price">Price (₹) *</Label>
+                  <Input
+                    id="price"
+                    type="number"
+                    value={formData.price}
+                    onChange={(e) =>
+                      setFormData({ ...formData, price: e.target.value })
+                    }
+                    required
+                  />
                 </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="sizes">Sizes (comma separated)</Label>
-                    <Input
-                      id="sizes"
-                      value={formData.sizes}
-                      onChange={(e) =>
-                        setFormData({ ...formData, sizes: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="colors">Colors (comma separated)</Label>
-                    <Input
-                      id="colors"
-                      value={formData.colors}
-                      onChange={(e) =>
-                        setFormData({ ...formData, colors: e.target.value })
-                      }
-                      placeholder="Red, Blue, Green"
-                    />
-                  </div>
+                <div className="space-y-2">
+                  <Label htmlFor="sale_price">Sale Price (₹)</Label>
+                  <Input
+                    id="sale_price"
+                    type="number"
+                    value={formData.sale_price}
+                    onChange={(e) =>
+                      setFormData({ ...formData, sale_price: e.target.value })
+                    }
+                  />
                 </div>
-
-                <div className="flex flex-wrap gap-6 pt-4">
-                  <div className="flex items-center gap-2">
-                    <Switch
-                      id="is_active"
-                      checked={formData.is_active}
-                      onCheckedChange={(checked) =>
-                        setFormData({ ...formData, is_active: checked })
-                      }
-                    />
-                    <Label htmlFor="is_active">Active</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Switch
-                      id="is_featured"
-                      checked={formData.is_featured}
-                      onCheckedChange={(checked) =>
-                        setFormData({ ...formData, is_featured: checked })
-                      }
-                    />
-                    <Label htmlFor="is_featured">Featured</Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Switch
-                      id="is_new"
-                      checked={formData.is_new}
-                      onCheckedChange={(checked) =>
-                        setFormData({ ...formData, is_new: checked })
-                      }
-                    />
-                    <Label htmlFor="is_new">New Arrival</Label>
-                  </div>
+                <div className="space-y-2">
+                  <Label htmlFor="stock">Stock</Label>
+                  <Input
+                    id="stock"
+                    type="number"
+                    value={formData.stock_quantity}
+                    onChange={(e) =>
+                      setFormData({ ...formData, stock_quantity: e.target.value })
+                    }
+                  />
                 </div>
+              </div>
 
-                <div className="flex justify-end gap-2 pt-4">
-                  <Button type="button" variant="outline" onClick={closeDialog}>
-                    Cancel
-                  </Button>
-                  <Button type="submit">
-                    {editingProduct ? "Update" : "Create"} Product
+              <div className="space-y-2">
+                <Label htmlFor="category">Category</Label>
+                <Select
+                  value={formData.category_id}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, category_id: value })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((cat) => (
+                      <SelectItem key={cat.id} value={cat.id}>
+                        {cat.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="images">Image URLs (comma separated)</Label>
+                <div className="flex gap-2">
+                  <Input
+                    id="images"
+                    value={formData.images}
+                    onChange={(e) =>
+                      setFormData({ ...formData, images: e.target.value })
+                    }
+                    placeholder="https://example.com/image1.jpg, https://example.com/image2.jpg"
+                  />
+                  <Button type="button" variant="outline" size="icon">
+                    <ImagePlus className="w-4 h-4" />
                   </Button>
                 </div>
-              </form>
-            </DialogContent>
-          </Dialog>
-        </div>
+              </div>
 
-        {/* Search */}
-        <div className="relative max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <Input
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-          />
-        </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="sizes">Sizes (comma separated)</Label>
+                  <Input
+                    id="sizes"
+                    value={formData.sizes}
+                    onChange={(e) =>
+                      setFormData({ ...formData, sizes: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="colors">Colors (comma separated)</Label>
+                  <Input
+                    id="colors"
+                    value={formData.colors}
+                    onChange={(e) =>
+                      setFormData({ ...formData, colors: e.target.value })
+                    }
+                    placeholder="Red, Blue, Green"
+                  />
+                </div>
+              </div>
 
-        {/* Products Table */}
-        <div className="bg-background rounded-lg border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Product</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Stock</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {loading ? (
-                <TableRow>
-                  <TableCell colSpan={5} className="text-center py-8">
-                    Loading...
-                  </TableCell>
-                </TableRow>
-              ) : filteredProducts.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={5} className="text-center py-8">
-                    No products found
-                  </TableCell>
-                </TableRow>
-              ) : (
-                filteredProducts.map((product) => (
-                  <TableRow key={product.id}>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-muted rounded overflow-hidden">
-                          {product.images?.[0] && (
-                            <img
-                              src={product.images[0]}
-                              alt={product.name}
-                              className="w-full h-full object-cover"
-                            />
-                          )}
-                        </div>
-                        <div>
-                          <p className="font-medium">{product.name}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {product.slug}
-                          </p>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div>
-                        {product.sale_price ? (
-                          <>
-                            <span className="text-highlight font-medium">
-                              {formatPrice(product.sale_price)}
-                            </span>
-                            <span className="text-xs text-muted-foreground line-through ml-2">
-                              {formatPrice(product.price)}
-                            </span>
-                          </>
-                        ) : (
-                          <span>{formatPrice(product.price)}</span>
-                        )}
-                      </div>
-                    </TableCell>
-                    <TableCell>{product.stock_quantity}</TableCell>
-                    <TableCell>
-                      <div className="flex gap-1">
-                        {product.is_active ? (
-                          <Badge variant="secondary" className="bg-green-100 text-green-800">
-                            Active
-                          </Badge>
-                        ) : (
-                          <Badge variant="secondary" className="bg-gray-100 text-gray-800">
-                            Inactive
-                          </Badge>
-                        )}
-                        {product.is_featured && (
-                          <Badge variant="secondary" className="bg-accent/20 text-accent">
-                            Featured
-                          </Badge>
-                        )}
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => openEditDialog(product)}
-                      >
-                        <Pencil className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleDelete(product.id)}
-                        className="text-destructive hover:text-destructive"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </div>
+              <div className="flex flex-wrap gap-6 pt-4">
+                <div className="flex items-center gap-2">
+                  <Switch
+                    id="is_active"
+                    checked={formData.is_active}
+                    onCheckedChange={(checked) =>
+                      setFormData({ ...formData, is_active: checked })
+                    }
+                  />
+                  <Label htmlFor="is_active">Active</Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Switch
+                    id="is_featured"
+                    checked={formData.is_featured}
+                    onCheckedChange={(checked) =>
+                      setFormData({ ...formData, is_featured: checked })
+                    }
+                  />
+                  <Label htmlFor="is_featured">Featured</Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Switch
+                    id="is_new"
+                    checked={formData.is_new}
+                    onCheckedChange={(checked) =>
+                      setFormData({ ...formData, is_new: checked })
+                    }
+                  />
+                  <Label htmlFor="is_new">New Arrival</Label>
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2 pt-4">
+                <Button type="button" variant="outline" onClick={closeDialog}>
+                  Cancel
+                </Button>
+                <Button type="submit">
+                  {editingProduct ? "Update" : "Create"} Product
+                </Button>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
-    </AdminLayout>
+
+      <div className="relative max-w-sm">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <Input
+          placeholder="Search products..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="pl-10"
+        />
+      </div>
+
+      <div className="bg-background rounded-lg border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Product</TableHead>
+              <TableHead>Price</TableHead>
+              <TableHead>Stock</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center py-8">
+                  Loading...
+                </TableCell>
+              </TableRow>
+            ) : filteredProducts.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center py-8">
+                  No products found
+                </TableCell>
+              </TableRow>
+            ) : (
+              filteredProducts.map((product) => (
+                <TableRow key={product.id}>
+                  <TableCell>
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-muted rounded overflow-hidden">
+                        {product.images?.[0] && (
+                          <img
+                            src={product.images[0]}
+                            alt={product.name}
+                            className="w-full h-full object-cover"
+                          />
+                        )}
+                      </div>
+                      <div>
+                        <p className="font-medium">{product.name}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {product.slug}
+                        </p>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div>
+                      {product.sale_price ? (
+                        <>
+                          <span className="text-highlight font-medium">
+                            {formatPrice(product.sale_price)}
+                          </span>
+                          <span className="text-xs text-muted-foreground line-through ml-2">
+                            {formatPrice(product.price)}
+                          </span>
+                        </>
+                      ) : (
+                        <span>{formatPrice(product.price)}</span>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell>{product.stock_quantity}</TableCell>
+                  <TableCell>
+                    <div className="flex gap-1">
+                      {product.is_active ? (
+                        <Badge variant="secondary" className="bg-green-100 text-green-800">
+                          Active
+                        </Badge>
+                      ) : (
+                        <Badge variant="secondary" className="bg-gray-100 text-gray-800">
+                          Inactive
+                        </Badge>
+                      )}
+                      {product.is_featured && (
+                        <Badge variant="secondary" className="bg-accent/20 text-accent">
+                          Featured
+                        </Badge>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => openEditDialog(product)}
+                    >
+                      <Pencil className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDelete(product.id)}
+                      className="text-destructive hover:text-destructive"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
   );
 };
 
