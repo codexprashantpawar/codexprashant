@@ -5,11 +5,13 @@ import Footer from "@/components/layout/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/formatPrice";
-import { Heart, Minus, Plus, ShoppingBag, Truck, RotateCcw, Shield } from "lucide-react";
+import { Heart, Minus, Plus, ShoppingBag, Truck, RotateCcw, Shield, Sparkles } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
+import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { cn } from "@/lib/utils";
 import ProductGrid from "@/components/products/ProductGrid";
+import AITryOn from "@/components/products/AITryOn";
 
 const ProductDetail = () => {
   const { slug } = useParams();
@@ -20,9 +22,11 @@ const ProductDetail = () => {
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [showTryOn, setShowTryOn] = useState(false);
 
   const { addToCart } = useCart();
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const { addToRecentlyViewed } = useRecentlyViewed();
 
   useEffect(() => {
     fetchProduct();
@@ -41,6 +45,16 @@ const ProductDetail = () => {
       setProduct({ ...data, category: data.categories });
       setSelectedSize(data.sizes?.[0] || "");
       setSelectedColor(data.colors?.[0] || "");
+      
+      // Add to recently viewed
+      addToRecentlyViewed({
+        id: data.id,
+        name: data.name,
+        slug: data.slug,
+        price: data.price,
+        sale_price: data.sale_price,
+        images: data.images || []
+      });
       
       // Fetch related products
       const { data: related } = await supabase
@@ -162,6 +176,16 @@ const ProductDetail = () => {
                   ))}
                 </div>
               )}
+              
+              {/* AI Try-On Button */}
+              <Button
+                variant="outline"
+                className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+                onClick={() => setShowTryOn(true)}
+              >
+                <Sparkles className="w-4 h-4 mr-2" />
+                Try On with AI Camera
+              </Button>
             </div>
 
             {/* Details */}
@@ -311,6 +335,14 @@ const ProductDetail = () => {
         </div>
       </main>
       <Footer />
+      
+      {/* AI Try-On Modal */}
+      <AITryOn
+        productImage={product?.images?.[0] || '/placeholder.svg'}
+        productName={product?.name || ''}
+        open={showTryOn}
+        onClose={() => setShowTryOn(false)}
+      />
     </div>
   );
 };
