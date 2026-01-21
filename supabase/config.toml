@@ -1,1 +1,4 @@
 project_id = "fmflpvuyxrppmdskqzug"
+
+[functions.ai-virtual-tryon]
+verify_jwt = false
