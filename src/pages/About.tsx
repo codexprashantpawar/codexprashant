@@ -63,8 +63,8 @@ const About = () => {
               <div className="order-1 md:order-2">
                 <h3 className="font-serif text-2xl mb-4">Our Promise</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Every garment at VYSTRA is crafted with care, using premium fabrics and 
-                  sustainable practices. We work directly with artisan communities across India, 
+                  Every garment at INVAANI is crafted with care, using premium fabrics and 
+                  sustainable practices. We work directly with artisan communities across India,
                   ensuring fair wages and preserving traditional weaving techniques that have been 
                   passed down through generations.
                 </p>
