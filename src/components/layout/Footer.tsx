@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <h2 className="font-serif text-2xl tracking-widest mb-4">VYSTRA</h2>
+            <h2 className="font-serif text-2xl tracking-widest mb-4">INVAANI</h2>
             <p className="text-primary-foreground/70 text-sm leading-relaxed mb-6">
               Exclusive women's fashion for every age, every style, every occasion.
             </p>
