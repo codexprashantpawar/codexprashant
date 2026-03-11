@@ -75,7 +75,9 @@ const AdminLayout = () => {
         <h1 className="font-serif text-xl font-semibold">INVAANI Admin</h1>
         <div className="w-10" />
       </header>
-...
+
+      {/* Sidebar */}
+      <aside className={`fixed top-0 left-0 bottom-0 w-64 bg-background border-r border-border z-40 transition-transform duration-200 ease-in-out lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
         <div className="h-16 flex items-center justify-center border-b border-border">
           <Link to="/admin" className="font-serif text-2xl font-semibold tracking-wider">
             INVAANI
