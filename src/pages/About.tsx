@@ -27,7 +27,7 @@ const About = () => {
             <section className="text-center">
               <h2 className="font-serif text-3xl md:text-4xl mb-6">About INVAANI</h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                VYSTRA was founded with a simple mission: to celebrate the beauty and diversity of 
+                INVAANI was founded with a simple mission: to celebrate the beauty and diversity of 
                 Indian women through fashion. We believe every woman deserves to feel confident and 
                 beautiful, regardless of her age, size, or style preference.
               </p>
