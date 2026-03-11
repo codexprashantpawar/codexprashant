@@ -137,7 +137,7 @@ const Footer = () => {
                 allowFullScreen 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
-                title="VYSTRA Store Location"
+                title="INVAANI Store Location"
               />
             </div>
           </div>
