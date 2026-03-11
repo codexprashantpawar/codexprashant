@@ -39,7 +39,7 @@ const About = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   We envision a world where traditional Indian craftsmanship meets contemporary 
                   design, creating fashion that honors our heritage while embracing modern sensibilities. 
-                  From the youngest girls to our wise elders, VYSTRA is for every woman who wants 
+                  From the youngest girls to our wise elders, INVAANI is for every woman who wants 
                   to express herself through style.
                 </p>
               </div>
