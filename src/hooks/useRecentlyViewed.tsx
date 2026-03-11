@@ -10,7 +10,7 @@ interface ViewedProduct {
   viewedAt: number;
 }
 
-const STORAGE_KEY = "vystra_recently_viewed";
+const STORAGE_KEY = "invaani_recently_viewed";
 const MAX_ITEMS = 10;
 
 export const useRecentlyViewed = () => {
