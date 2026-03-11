@@ -72,7 +72,7 @@ const About = () => {
             </section>
 
             <section className="bg-secondary p-8 md:p-12 rounded-lg text-center">
-              <h3 className="font-serif text-2xl mb-6">Why Choose VYSTRA?</h3>
+              <h3 className="font-serif text-2xl mb-6">Why Choose INVAANI?</h3>
               <div className="grid md:grid-cols-3 gap-8">
                 <div>
                   <p className="font-serif text-4xl text-accent mb-2">15+</p>

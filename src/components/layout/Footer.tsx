@@ -146,7 +146,7 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-primary-foreground/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-xs text-primary-foreground/50">
-              © 2026 VYSTRA. All rights reserved.
+              © 2026 INVAANI. All rights reserved.
             </p>
             <p className="text-xs text-primary-foreground/50">
               Design by <span className="text-accent">Prashant Pawar</span>

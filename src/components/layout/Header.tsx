@@ -116,7 +116,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <h1 className="font-serif text-2xl md:text-3xl font-semibold tracking-widest text-primary">
-              VYSTRA
+              INVAANI
             </h1>
           </Link>
 
