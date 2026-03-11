@@ -17,7 +17,7 @@ const BrandStory = () => {
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
               Born from a passion for preserving India's rich textile heritage, 
-              VYSTRA represents a new chapter in contemporary fashion. We collaborate 
+              INVAANI represents a new chapter in contemporary fashion. We collaborate 
               with master artisans across the country, translating centuries-old 
               techniques into pieces designed for the modern wardrobe.
             </p>

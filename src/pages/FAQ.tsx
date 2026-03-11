@@ -61,7 +61,7 @@ const FAQ = () => {
               Frequently Asked Questions
             </h1>
             <p className="text-muted-foreground text-center mb-12">
-              Find answers to common questions about shopping with VYSTRA
+              Find answers to common questions about shopping with INVAANI
             </p>
 
             <Accordion type="single" collapsible className="space-y-4">

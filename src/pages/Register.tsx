@@ -50,7 +50,7 @@ const Register = () => {
         <div className="container max-w-md py-16">
           <div className="text-center mb-8">
             <h1 className="font-serif text-3xl md:text-4xl mb-2">Create Account</h1>
-            <p className="text-muted-foreground">Join VYSTRA for exclusive offers</p>
+            <p className="text-muted-foreground">Join INVAANI for exclusive offers</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">

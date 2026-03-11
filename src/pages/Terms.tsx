@@ -13,7 +13,7 @@ const Terms = () => {
             <div className="space-y-8 text-muted-foreground">
               <section>
                 <h2 className="font-serif text-2xl text-foreground mb-4">Acceptance of Terms</h2>
-                <p>By accessing and using VYSTRA, you agree to be bound by these Terms of Service. If you do not agree, please do not use our services.</p>
+                <p>By accessing and using INVAANI, you agree to be bound by these Terms of Service. If you do not agree, please do not use our services.</p>
               </section>
 
               <section>

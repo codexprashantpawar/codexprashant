@@ -59,7 +59,7 @@ const Login = () => {
         <div className="container max-w-md py-16">
           <div className="text-center mb-8">
             <h1 className="font-serif text-3xl md:text-4xl mb-2">Welcome Back</h1>
-            <p className="text-muted-foreground">Sign in to your VYSTRA account</p>
+            <p className="text-muted-foreground">Sign in to your INVAANI account</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
