@@ -115,10 +115,11 @@ const Header = () => {
           </button>
 
           {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <h1 className="font-serif text-2xl md:text-3xl font-semibold tracking-widest text-primary">
-              INVAANI
-            </h1>
+          <Link to="/" className="flex items-center gap-2">
+            <img src={logo} alt="INVAANI" className="h-10 md:h-12 w-auto object-contain" />
+            <span className="hidden sm:block text-[10px] md:text-xs text-muted-foreground italic tracking-tight max-w-[120px] leading-tight">
+              Four best friends on a startup journey
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
