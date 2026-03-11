@@ -1,6 +1,6 @@
 const WhatsAppButton = () => {
   const phoneNumber = "918830764356"; // Your WhatsApp number
-  const message = "Hello! I have a query about VYSTRA products.";
+  const message = "Hello! I have a query about INVAANI products.";
   
   const handleClick = () => {
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;

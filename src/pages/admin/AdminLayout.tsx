@@ -72,19 +72,15 @@ const AdminLayout = () => {
         <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(!sidebarOpen)}>
           {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </Button>
-        <h1 className="font-serif text-xl font-semibold">VYSTRA Admin</h1>
+        <h1 className="font-serif text-xl font-semibold">INVAANI Admin</h1>
         <div className="w-10" />
       </header>
 
       {/* Sidebar */}
-      <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-background border-r border-border z-40 transform transition-transform duration-300 lg:translate-x-0 ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
+      <aside className={`fixed top-0 left-0 bottom-0 w-64 bg-background border-r border-border z-40 transition-transform duration-200 ease-in-out lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
         <div className="h-16 flex items-center justify-center border-b border-border">
           <Link to="/admin" className="font-serif text-2xl font-semibold tracking-wider">
-            VYSTRA
+            INVAANI
           </Link>
         </div>
 

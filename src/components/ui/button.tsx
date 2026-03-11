@@ -19,7 +19,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-sm",
         ghost: "hover:bg-accent hover:text-accent-foreground rounded-sm",
         link: "text-primary underline-offset-4 hover:underline",
-        // VYSTRA Premium variants
+        // INVAANI Premium variants
         luxury:
           "bg-gradient-to-r from-accent to-amber-600 text-primary font-semibold tracking-wide shadow-gold hover:shadow-elevated hover:-translate-y-0.5 rounded-sm",
         editorial:

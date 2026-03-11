@@ -11,7 +11,7 @@ const About = () => {
           <div className="absolute inset-0">
             <img
               src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1920&q=80"
-              alt="VYSTRA Story"
+              alt="INVAANI Story"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-primary/70" />
@@ -25,9 +25,9 @@ const About = () => {
         <div className="container py-16 md:py-24">
           <div className="max-w-3xl mx-auto space-y-12">
             <section className="text-center">
-              <h2 className="font-serif text-3xl md:text-4xl mb-6">About VYSTRA</h2>
+              <h2 className="font-serif text-3xl md:text-4xl mb-6">About INVAANI</h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                VYSTRA was founded with a simple mission: to celebrate the beauty and diversity of 
+                INVAANI was founded with a simple mission: to celebrate the beauty and diversity of 
                 Indian women through fashion. We believe every woman deserves to feel confident and 
                 beautiful, regardless of her age, size, or style preference.
               </p>
@@ -39,7 +39,7 @@ const About = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   We envision a world where traditional Indian craftsmanship meets contemporary 
                   design, creating fashion that honors our heritage while embracing modern sensibilities. 
-                  From the youngest girls to our wise elders, VYSTRA is for every woman who wants 
+                  From the youngest girls to our wise elders, INVAANI is for every woman who wants 
                   to express herself through style.
                 </p>
               </div>
@@ -63,8 +63,8 @@ const About = () => {
               <div className="order-1 md:order-2">
                 <h3 className="font-serif text-2xl mb-4">Our Promise</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Every garment at VYSTRA is crafted with care, using premium fabrics and 
-                  sustainable practices. We work directly with artisan communities across India, 
+                  Every garment at INVAANI is crafted with care, using premium fabrics and 
+                  sustainable practices. We work directly with artisan communities across India,
                   ensuring fair wages and preserving traditional weaving techniques that have been 
                   passed down through generations.
                 </p>
@@ -72,7 +72,7 @@ const About = () => {
             </section>
 
             <section className="bg-secondary p-8 md:p-12 rounded-lg text-center">
-              <h3 className="font-serif text-2xl mb-6">Why Choose VYSTRA?</h3>
+              <h3 className="font-serif text-2xl mb-6">Why Choose INVAANI?</h3>
               <div className="grid md:grid-cols-3 gap-8">
                 <div>
                   <p className="font-serif text-4xl text-accent mb-2">15+</p>

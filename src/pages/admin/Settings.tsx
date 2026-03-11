@@ -27,7 +27,7 @@ const Settings = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Store Name</Label>
-                <Input value="VYSTRA" disabled />
+                <Input value="INVAANI" disabled />
               </div>
               <div className="space-y-2">
                 <Label>Contact Email</Label>
