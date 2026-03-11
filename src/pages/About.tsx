@@ -25,7 +25,7 @@ const About = () => {
         <div className="container py-16 md:py-24">
           <div className="max-w-3xl mx-auto space-y-12">
             <section className="text-center">
-              <h2 className="font-serif text-3xl md:text-4xl mb-6">About VYSTRA</h2>
+              <h2 className="font-serif text-3xl md:text-4xl mb-6">About INVAANI</h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
                 VYSTRA was founded with a simple mission: to celebrate the beauty and diversity of 
                 Indian women through fashion. We believe every woman deserves to feel confident and 
