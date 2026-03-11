@@ -11,7 +11,7 @@ const About = () => {
           <div className="absolute inset-0">
             <img
               src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1920&q=80"
-              alt="VYSTRA Story"
+              alt="INVAANI Story"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-primary/70" />
