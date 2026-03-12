@@ -2,9 +2,12 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/home/HeroSection";
 import FlashDeals from "@/components/home/FlashDeals";
-import CollectionsGrid from "@/components/home/CollectionsGrid";
 import TrendingProducts from "@/components/home/TrendingProducts";
-import BrandStory from "@/components/home/BrandStory";
+import WomenCollections from "@/components/home/WomenCollections";
+import MenCollections from "@/components/home/MenCollections";
+import ShopMainCharacter from "@/components/home/ShopMainCharacter";
+import NewLaunch from "@/components/home/NewLaunch";
+import InstagramFeed from "@/components/home/InstagramFeed";
 import Newsletter from "@/components/home/Newsletter";
 import RecentlyViewed from "@/components/home/RecentlyViewed";
 
@@ -15,10 +18,13 @@ const Index = () => {
       <main>
         <HeroSection />
         <FlashDeals />
-        <CollectionsGrid />
         <TrendingProducts />
+        <WomenCollections />
+        <MenCollections />
+        <ShopMainCharacter />
+        <NewLaunch />
         <RecentlyViewed />
-        <BrandStory />
+        <InstagramFeed />
         <Newsletter />
       </main>
       <Footer />

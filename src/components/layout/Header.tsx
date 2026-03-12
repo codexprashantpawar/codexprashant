@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Search, ShoppingBag, User, Menu, X, Heart, ChevronDown } from "lucide-react";
+import MarqueeBanner from "./MarqueeBanner";
 import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,41 +38,18 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const categories = [
-    {
-      label: "Ethnic Wear",
-      href: "/category/ethnic-wear",
-      subcategories: [
-        { label: "Sarees", href: "/category/sarees" },
-        { label: "Kurtis", href: "/category/kurtis" },
-        { label: "Lehengas", href: "/category/lehengas" },
-        { label: "Salwar Suits", href: "/category/salwar-suits" },
-      ],
-    },
-    {
-      label: "Western Wear",
-      href: "/category/western-wear",
-      subcategories: [
-        { label: "Dresses", href: "/category/dresses" },
-        { label: "Tops", href: "/category/tops" },
-        { label: "Jeans & Pants", href: "/category/jeans-pants" },
-      ],
-    },
-    {
-      label: "Girls",
-      href: "/category/girls-clothing",
-      subcategories: [],
-    },
-    {
-      label: "Nightwear",
-      href: "/category/nightwear",
-      subcategories: [],
-    },
-    {
-      label: "Activewear",
-      href: "/category/activewear",
-      subcategories: [],
-    },
+  const womenCategories = [
+    { label: "Sarees", href: "/category/sarees" },
+    { label: "Kurtis", href: "/category/kurtis" },
+    { label: "Lehengas", href: "/category/lehengas" },
+    { label: "Salwar Suits", href: "/category/salwar-suits" },
+    { label: "Western Wear", href: "/category/western-wear" },
+  ];
+
+  const menCategories = [
+    { label: "Kurtas", href: "/category/men-kurta" },
+    { label: "Shirts", href: "/category/men-shirts" },
+    { label: "Ethnic Wear", href: "/category/men-ethnic" },
   ];
 
   const handleSearch = (e: React.FormEvent) => {
@@ -96,13 +74,8 @@ const Header = () => {
           : "bg-background/95 backdrop-blur-sm"
       } border-b border-border`}
     >
+      <MarqueeBanner />
       <div className="container mx-auto">
-        {/* Top bar - promotional */}
-        <div className="hidden md:block py-1.5 text-center border-b border-border/50">
-          <p className="text-xs text-muted-foreground">
-            Free Shipping on orders above ₹999 | Easy 15-day returns
-          </p>
-        </div>
 
         <div className="flex items-center justify-between h-16 py-2">
           {/* Mobile Menu Toggle */}
@@ -122,53 +95,64 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
             <Link
-              to="/new-arrivals"
+              to="/"
               className={`px-4 py-2 text-sm font-sans tracking-wide transition-colors duration-200 uppercase hover:text-accent ${
-                location.pathname === "/new-arrivals" ? "text-accent" : "text-foreground/80"
+                location.pathname === "/" ? "text-accent" : "text-foreground/80"
               }`}
             >
-              New
+              Home
             </Link>
 
-            {categories.map((category) => (
-              <DropdownMenu key={category.label}>
-                <DropdownMenuTrigger asChild>
-                  <button
-                    className={`flex items-center gap-1 px-4 py-2 text-sm font-sans tracking-wide transition-colors duration-200 uppercase hover:text-accent ${
-                      location.pathname.includes(category.href) ? "text-accent" : "text-foreground/80"
-                    }`}
-                  >
-                    {category.label}
-                    {category.subcategories.length > 0 && <ChevronDown className="w-3 h-3" />}
-                  </button>
-                </DropdownMenuTrigger>
-                {category.subcategories.length > 0 && (
-                  <DropdownMenuContent align="start" className="w-48">
-                    <DropdownMenuItem asChild>
-                      <Link to={category.href} className="w-full">
-                        All {category.label}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    {category.subcategories.map((sub) => (
-                      <DropdownMenuItem key={sub.label} asChild>
-                        <Link to={sub.href} className="w-full">
-                          {sub.label}
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                )}
-              </DropdownMenu>
-            ))}
+            {/* Women Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-1 px-4 py-2 text-sm font-sans tracking-wide transition-colors duration-200 uppercase hover:text-accent text-foreground/80">
+                  Women
+                  <ChevronDown className="w-3 h-3" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                {womenCategories.map((sub) => (
+                  <DropdownMenuItem key={sub.label} asChild>
+                    <Link to={sub.href} className="w-full">{sub.label}</Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Men Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-1 px-4 py-2 text-sm font-sans tracking-wide transition-colors duration-200 uppercase hover:text-accent text-foreground/80">
+                  Men
+                  <ChevronDown className="w-3 h-3" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                {menCategories.map((sub) => (
+                  <DropdownMenuItem key={sub.label} asChild>
+                    <Link to={sub.href} className="w-full">{sub.label}</Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <Link
-              to="/shop"
+              to="/about"
               className={`px-4 py-2 text-sm font-sans tracking-wide transition-colors duration-200 uppercase hover:text-accent ${
-                location.pathname === "/shop" ? "text-accent" : "text-foreground/80"
+                location.pathname === "/about" ? "text-accent" : "text-foreground/80"
               }`}
             >
-              Shop All
+              Our Story
+            </Link>
+
+            <Link
+              to="/contact"
+              className={`px-4 py-2 text-sm font-sans tracking-wide transition-colors duration-200 uppercase hover:text-accent ${
+                location.pathname === "/contact" ? "text-accent" : "text-foreground/80"
+              }`}
+            >
+              Contact Us
             </Link>
           </nav>
 
@@ -294,47 +278,24 @@ const Header = () => {
             </form>
 
             <div className="flex flex-col gap-2">
-              <Link
-                to="/new-arrivals"
-                className="text-lg font-serif tracking-wide text-foreground/80 hover:text-foreground transition-colors duration-200 py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                New Arrivals
-              </Link>
+              <Link to="/" className="text-lg font-serif tracking-wide text-foreground/80 hover:text-foreground transition-colors duration-200 py-2" onClick={() => setIsMenuOpen(false)}>Home</Link>
 
-              {categories.map((category) => (
-                <div key={category.label}>
-                  <Link
-                    to={category.href}
-                    className="text-lg font-serif tracking-wide text-foreground/80 hover:text-foreground transition-colors duration-200 py-2 block"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {category.label}
-                  </Link>
-                  {category.subcategories.length > 0 && (
-                    <div className="pl-4 flex flex-col gap-1">
-                      {category.subcategories.map((sub) => (
-                        <Link
-                          key={sub.label}
-                          to={sub.href}
-                          className="text-sm text-muted-foreground hover:text-foreground transition-colors py-1"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          {sub.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
+              <p className="text-lg font-serif tracking-wide text-foreground py-2 font-semibold">Women</p>
+              <div className="pl-4 flex flex-col gap-1">
+                {womenCategories.map((sub) => (
+                  <Link key={sub.label} to={sub.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors py-1" onClick={() => setIsMenuOpen(false)}>{sub.label}</Link>
+                ))}
+              </div>
 
-              <Link
-                to="/shop"
-                className="text-lg font-serif tracking-wide text-foreground/80 hover:text-foreground transition-colors duration-200 py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Shop All
-              </Link>
+              <p className="text-lg font-serif tracking-wide text-foreground py-2 font-semibold">Men</p>
+              <div className="pl-4 flex flex-col gap-1">
+                {menCategories.map((sub) => (
+                  <Link key={sub.label} to={sub.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors py-1" onClick={() => setIsMenuOpen(false)}>{sub.label}</Link>
+                ))}
+              </div>
+
+              <Link to="/about" className="text-lg font-serif tracking-wide text-foreground/80 hover:text-foreground transition-colors duration-200 py-2" onClick={() => setIsMenuOpen(false)}>Our Story</Link>
+              <Link to="/contact" className="text-lg font-serif tracking-wide text-foreground/80 hover:text-foreground transition-colors duration-200 py-2" onClick={() => setIsMenuOpen(false)}>Contact Us</Link>
 
               <div className="border-t border-border mt-4 pt-4">
                 {user ? (

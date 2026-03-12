@@ -21,7 +21,7 @@ const Newsletter = () => {
             Stay Connected
           </p>
           <h2 className="font-serif text-4xl md:text-5xl mb-6">
-            Join the VYSTRA World
+            Join the INVAANI World
           </h2>
           <p className="text-muted-foreground text-lg mb-10">
             Be the first to discover new collections, exclusive offers, and styling 
