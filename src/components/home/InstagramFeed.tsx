@@ -74,7 +74,7 @@ const InstagramFeed = () => {
               Follow us on
             </h2>
             <a
-              href="https://instagram.com/invaani_"
+              href="https://www.instagram.com/invaanii?igsh=MThudnR0YmRsbng5eA=="
               target="_blank"
               rel="noopener noreferrer"
               className="text-highlight font-serif text-2xl md:text-3xl hover:underline"

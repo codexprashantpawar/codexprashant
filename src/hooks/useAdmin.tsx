@@ -6,15 +6,19 @@ export const useAdmin = () => {
   const { user } = useAuth();
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [lastCheckedUserId, setLastCheckedUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const checkAdminRole = async () => {
       if (!user) {
         setIsAdmin(false);
         setLoading(false);
+        setLastCheckedUserId(null);
         return;
       }
 
+      // Mark as loading for this user until the role check completes
+      setLoading(true);
       try {
         const { data, error } = await supabase
           .from('user_roles')
@@ -33,11 +37,19 @@ export const useAdmin = () => {
         console.error('Error:', err);
         setIsAdmin(false);
       }
+      setLastCheckedUserId(user.id);
       setLoading(false);
     };
 
-    checkAdminRole();
-  }, [user]);
+    // If we have a user that we haven't checked yet, treat as loading
+    if (user && user.id !== lastCheckedUserId) {
+      setLoading(true);
+      checkAdminRole();
+    }
+  }, [user, lastCheckedUserId]);
 
-  return { isAdmin, loading };
+  // While a new user is present but not yet checked, keep loading true
+  const effectiveLoading = loading || (!!user && user.id !== lastCheckedUserId);
+
+  return { isAdmin, loading: effectiveLoading };
 };
